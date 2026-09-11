@@ -1,0 +1,39 @@
+name: Build reading index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "readings/**"
+      - "generate.py"
+      - ".github/workflows/build-readings.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Generate readings.json
+        run: python3 generate.py
+
+      - name: Commit generated index
+        run: |
+          if git diff --quiet -- readings.json; then
+            echo "readings.json is already up to date"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add readings.json
+          git commit -m "chore: update reading index"
+          git push
