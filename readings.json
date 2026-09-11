@@ -28,5 +28,45 @@
     "file": "05-便利になった社会で失われるもの.html",
     "title": "便利になった社会で失われるもの",
     "path": "./readings/05-便利になった社会で失われるもの.html"
+  },
+  {
+    "file": "06-work-and-rest.html",
+    "title": "仕事の効率と休憩の関係",
+    "path": "./readings/06-work-and-rest.html"
+  },
+  {
+    "file": "07-city-life.html",
+    "title": "都会で暮らすという選択",
+    "path": "./readings/07-city-life.html"
+  },
+  {
+    "file": "08-comparing-yourself.html",
+    "title": "他人と自分を比べてしまう理由",
+    "path": "./readings/08-comparing-yourself.html"
+  },
+  {
+    "file": "09-ai-decisions.html",
+    "title": "AIに任せるべきこと、任せるべきではないこと",
+    "path": "./readings/09-ai-decisions.html"
+  },
+  {
+    "file": "10-nostalgia.html",
+    "title": "なぜ昔のものに魅力を感じるのか",
+    "path": "./readings/10-nostalgia.html"
+  },
+  {
+    "file": "11-cheap-or-value.html",
+    "title": "安いものを買うことは本当に得なのか",
+    "path": "./readings/11-cheap-or-value.html"
+  },
+  {
+    "file": "12-consideration.html",
+    "title": "相手に気を遣いすぎるということ",
+    "path": "./readings/12-consideration.html"
+  },
+  {
+    "file": "13-failure.html",
+    "title": "失敗を避けることが正しいとは限らない",
+    "path": "./readings/13-failure.html"
   }
 ]
