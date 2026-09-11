@@ -68,5 +68,25 @@
     "file": "13-failure.html",
     "title": "失敗を避けることが正しいとは限らない",
     "path": "./readings/13-failure.html"
+  },
+  {
+    "file": "14-information-choice.html",
+    "title": "情報が多いほど選びやすいとは限らない",
+    "path": "./readings/14-information-choice.html"
+  },
+  {
+    "file": "15-routine-change.html",
+    "title": "習慣を変えるのが難しい理由",
+    "path": "./readings/15-routine-change.html"
+  },
+  {
+    "file": "16-silence-conversation.html",
+    "title": "会話の「沈黙」は悪いことなのか",
+    "path": "./readings/16-silence-conversation.html"
+  },
+  {
+    "file": "17-environment-convenience.html",
+    "title": "環境にやさしい生活は不便なのか",
+    "path": "./readings/17-environment-convenience.html"
   }
 ]
