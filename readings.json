@@ -1,7 +1,32 @@
 [
   {
-    "file": "01-work.html",
+    "file": "00-sample.html",
+    "title": "サンプル：新しい習慣を続けるには",
+    "path": "./readings/00-sample.html"
+  },
+  {
+    "file": "01-日本で働くということ.html",
     "title": "日本で働くということ",
-    "path": "./readings/01-work.html"
+    "path": "./readings/01-日本で働くということ.html"
+  },
+  {
+    "file": "02-朝の時間を見直して気づいたこと.html",
+    "title": "朝の時間を見直して気づいたこと",
+    "path": "./readings/02-朝の時間を見直して気づいたこと.html"
+  },
+  {
+    "file": "03-大人になってからの友人関係.html",
+    "title": "大人になってからの友人関係",
+    "path": "./readings/03-大人になってからの友人関係.html"
+  },
+  {
+    "file": "04-知らない町を歩く楽しさ.html",
+    "title": "知らない町を歩く楽しさ",
+    "path": "./readings/04-知らない町を歩く楽しさ.html"
+  },
+  {
+    "file": "05-便利になった社会で失われるもの.html",
+    "title": "便利になった社会で失われるもの",
+    "path": "./readings/05-便利になった社会で失われるもの.html"
   }
 ]
