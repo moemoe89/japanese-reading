@@ -6,24 +6,64 @@
 <title>Japanese N2 Reading Library</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;background:#f7f7f7;color:#222}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+  background:#f7f7f7;color:#222
+}
 .app{display:flex;min-height:100vh}
-.sidebar{width:300px;padding:22px 16px;border-right:1px solid #ddd;background:white;position:fixed;inset:0 auto 0 0;overflow:auto}
+.sidebar{
+  width:300px;padding:22px 16px;border-right:1px solid #ddd;background:white;
+  position:fixed;inset:0 auto 0 0;overflow:auto
+}
 .sidebar h1{font-size:20px;margin:0 0 6px}
 .sidebar p{font-size:13px;color:#777;line-height:1.5;margin:0 0 18px}
 #list{display:flex;flex-direction:column;gap:6px}
-.item{border:0;background:transparent;padding:10px 12px;border-radius:9px;text-align:left;font-size:14px;cursor:pointer}
+.item{
+  border:0;background:transparent;padding:10px 12px;border-radius:9px;
+  text-align:left;font-size:14px;cursor:pointer
+}
 .item:hover,.item.active{background:#f0f0f0}
+
 .main{margin-left:300px;width:calc(100% - 300px);padding:28px}
-.toolbar{max-width:900px;margin:0 auto 18px;display:flex;gap:8px;flex-wrap:wrap}
-.toolbar button{border:1px solid #ccc;background:white;border-radius:9px;padding:9px 13px;cursor:pointer}
-#content{max-width:900px;margin:auto;padding:32px;background:white;border:1px solid #ddd;border-radius:14px;font-size:27px;line-height:2.2}
+
+.floating-controls{
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  z-index:1000;
+  display:flex;
+  gap:8px;
+  padding:8px;
+  background:rgba(255,255,255,.94);
+  border:1px solid #ddd;
+  border-radius:14px;
+  box-shadow:0 8px 24px rgba(0,0,0,.14);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px)
+}
+.floating-controls button{
+  border:1px solid #ccc;
+  background:white;
+  border-radius:9px;
+  padding:9px 13px;
+  cursor:pointer;
+  min-width:44px;
+  font-size:14px
+}
+
+#content{
+  max-width:900px;margin:auto;padding:32px;background:white;border:1px solid #ddd;
+  border-radius:14px;font-size:27px;line-height:2.2
+}
 #content h2{font-size:1.18em;line-height:1.5;margin:0 0 1em}
 #content h3{font-size:.8em;line-height:1.5;margin:2.2em 0 .8em}
 #content p{margin:0 0 1.25em}
+
 ruby{ruby-position:over}
 rt{font-size:.45em;color:#666;font-weight:400}
 .hide-furigana rt{visibility:hidden}
+
 .table-wrap{width:100%;overflow-x:auto;margin-top:1.2em}
 table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:16px;line-height:1.55}
 th,td{border:1px solid #d8d8d8;padding:10px 12px;vertical-align:top;text-align:left;word-break:break-word}
@@ -32,12 +72,28 @@ th:nth-child(1),td:nth-child(1){width:24%}
 th:nth-child(2),td:nth-child(2){width:24%}
 th:nth-child(3),td:nth-child(3){width:52%}
 .empty{color:#777;font-size:18px;line-height:1.7}
+
 @media(max-width:760px){
-  .sidebar{position:static;width:100%;border-right:0;border-bottom:1px solid #ddd}
+  .sidebar{
+    position:static;width:100%;border-right:0;border-bottom:1px solid #ddd
+  }
   .app{display:block}
   .main{margin-left:0;width:100%;padding:14px}
   #content{padding:20px;font-size:22px}
   table{min-width:620px;font-size:15px}
+
+  .floating-controls{
+    right:12px;
+    bottom:12px;
+    gap:6px;
+    padding:6px;
+    border-radius:12px
+  }
+  .floating-controls button{
+    padding:8px 10px;
+    font-size:13px;
+    min-width:40px
+  }
 }
 </style>
 </head>
@@ -48,15 +104,20 @@ th:nth-child(3),td:nth-child(3){width:52%}
     <p>Reading list is generated from files in <code>readings/</code>.</p>
     <div id="list"></div>
   </aside>
+
   <main class="main">
-    <div class="toolbar">
-      <button id="toggle">Hide Furigana</button>
-      <button id="smaller">A−</button>
-      <button id="bigger">A+</button>
-    </div>
-    <article id="content"><div class="empty">Loading readings...</div></article>
+    <article id="content">
+      <div class="empty">Loading readings...</div>
+    </article>
   </main>
 </div>
+
+<div class="floating-controls">
+  <button id="toggle" title="Hide / Show Furigana">Hide Furigana</button>
+  <button id="smaller" title="Zoom Out">A−</button>
+  <button id="bigger" title="Zoom In">A+</button>
+</div>
+
 <script>
 const list=document.getElementById("list");
 const content=document.getElementById("content");
@@ -72,9 +133,13 @@ function wrapTables(){
     wrap.appendChild(table);
   });
 }
+
 async function loadReading(item,button){
   const res=await fetch(item.path);
-  if(!res.ok){content.innerHTML='<div class="empty">Failed to load reading.</div>';return}
+  if(!res.ok){
+    content.innerHTML='<div class="empty">Failed to load reading.</div>';
+    return;
+  }
   content.innerHTML=await res.text();
   wrapTables();
   current=item.file;
@@ -83,29 +148,47 @@ async function loadReading(item,button){
   content.classList.toggle("hide-furigana",hidden);
   document.title=item.title+" - Japanese N2 Reader";
 }
+
 async function loadList(){
   try{
     const res=await fetch("./readings.json",{cache:"no-store"});
     const items=await res.json();
     list.innerHTML="";
-    if(!items.length){content.innerHTML='<div class="empty">No readings yet.</div>';return}
+    if(!items.length){
+      content.innerHTML='<div class="empty">No readings yet.</div>';
+      return;
+    }
     items.forEach((item,i)=>{
       const btn=document.createElement("button");
       btn.className="item";
       btn.textContent=item.title;
       btn.onclick=()=>loadReading(item,btn);
       list.appendChild(btn);
-      if((current&&current===item.file)||(!current&&i===0))loadReading(item,btn);
+      if((current&&current===item.file)||(!current&&i===0)){
+        loadReading(item,btn);
+      }
     });
-  }catch(e){content.innerHTML='<div class="empty">Could not load readings.json.</div>'}
+  }catch(e){
+    content.innerHTML='<div class="empty">Could not load readings.json.</div>';
+  }
 }
+
 toggle.onclick=()=>{
   hidden=!hidden;
   content.classList.toggle("hide-furigana",hidden);
   toggle.textContent=hidden?"Show Furigana":"Hide Furigana";
 };
-document.getElementById("bigger").onclick=()=>{fontSize=Math.min(fontSize+2,46);content.style.fontSize=fontSize+"px"};
-document.getElementById("smaller").onclick=()=>{fontSize=Math.max(fontSize-2,16);content.style.fontSize=fontSize+"px"};
+
+document.getElementById("bigger").onclick=()=>{
+  fontSize=Math.min(fontSize+2,46);
+  content.style.fontSize=fontSize+"px";
+};
+
+document.getElementById("smaller").onclick=()=>{
+  fontSize=Math.max(fontSize-2,16);
+  content.style.fontSize=fontSize+"px";
+};
+
 loadList();
 </script>
 </body>
